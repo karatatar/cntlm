@@ -1,0 +1,21 @@
+services:
+  cntlm:
+    image: karatatar/cntlm
+    container_name: cntlm
+    command: >
+      sh -c "
+        cntlm -f -c /etc/cntlm.conf
+      "
+    volumes:
+      - ./cntlm.conf:/etc/cntlm.conf:ro
+    ports:
+      - "127.0.0.1:33128:3128"
+    networks:
+      - cntlm_net
+    restart: unless-stopped
+
+networks:
+  cntlm_net:
+    driver: bridge
+    #internal: true
+
